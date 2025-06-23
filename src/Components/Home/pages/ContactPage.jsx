@@ -1,26 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+import Navbar from "../../Reusable/Navbar"; // ✅ Import the shared Navbar
 
 const ContactPage = () => {
   return (
     <div className="bg-indigo-50 min-h-screen">
-      {/* HEADER */}
-      <nav className="sticky top-0 z-50 flex justify-between items-center px-6 md:px-16 py-4 bg-white shadow-md">
-        <h1 className="text-3xl font-extrabold text-indigo-700 tracking-wide">SnapHelp</h1>
-        <div className="hidden md:flex space-x-6 text-base font-medium">
-          <Link to="/" className="hover:text-indigo-600 transition">Home</Link>
-          <a href="/#services" className="hover:text-indigo-600 transition">Services</a>
-          <a href="/#features" className="hover:text-indigo-600 transition">Why Us</a>
-          <Link to="/contact" className="hover:text-indigo-600 transition">Contact</Link>
-          <Link to="/history" className="hover:text-indigo-600 transition">History</Link>
-        </div>
-        <a href="/#services">
-          <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition">
-            Get Started
-          </button>
-        </a>
-      </nav>
+      <Navbar /> {/* ✅ Use Navbar component */}
 
       {/* MAIN SECTION */}
       <div className="px-6 py-12 max-w-6xl mx-auto">
@@ -112,7 +98,9 @@ const ContactPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <h4 className="text-xl font-bold mb-2">SnapHelp</h4>
-            <p className="text-sm text-gray-300">Empowering local professionals, simplifying home services.</p>
+            <p className="text-sm text-gray-300">
+              Empowering local professionals, simplifying home services.
+            </p>
           </div>
           <div className="text-sm text-gray-300 space-y-2">
             <p>📍 Bengaluru, India</p>
@@ -130,7 +118,9 @@ const ContactPage = () => {
             </ul>
           </div>
         </div>
-        <p className="mt-6 text-sm text-gray-500 text-center">&copy; {new Date().getFullYear()} SnapHelp. All rights reserved.</p>
+        <p className="mt-6 text-sm text-gray-500 text-center">
+          &copy; {new Date().getFullYear()} SnapHelp. All rights reserved.
+        </p>
       </footer>
     </div>
   );

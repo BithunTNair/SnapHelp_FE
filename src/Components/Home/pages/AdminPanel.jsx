@@ -6,20 +6,13 @@ import {
   FaEdit,
   FaTrashAlt,
 } from "react-icons/fa";
+import Navbar from "../../Reusable/Navbar"; // ✅ Reusable nav
 import { Link } from "react-router-dom";
 
 const AdminPanel = () => {
   return (
     <div className="min-h-screen bg-indigo-50 flex flex-col">
-      {/* HEADER */}
-      <header className="bg-white shadow sticky top-0 z-50 px-6 md:px-16 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-extrabold text-indigo-700 tracking-wide">SnapHelp Admin</h1>
-        <nav className="hidden md:flex space-x-6 text-sm font-medium">
-          <Link to="/" className="hover:text-indigo-600">Home</Link>
-          <Link to="/contact" className="hover:text-indigo-600">Contact</Link>
-          <Link to="/history" className="hover:text-indigo-600">History</Link>
-        </nav>
-      </header>
+      <Navbar /> {/* ✅ Inserted navbar */}
 
       {/* MAIN CONTENT */}
       <main className="flex-grow px-6 md:px-16 py-10">
@@ -37,21 +30,33 @@ const AdminPanel = () => {
         </div>
 
         {/* Manage Sections */}
-        <AdminSection title="Manage Services" columns={["Service", "Category", "Actions"]} rows={[
-          ["Plumbing", "Home Repair"],
-          ["Electrician", "Home Repair"],
-          ["Car Wash", "Auto"],
-        ]} />
+        <AdminSection
+          title="Manage Services"
+          columns={["Service", "Category", "Actions"]}
+          rows={[
+            ["Plumbing", "Home Repair"],
+            ["Electrician", "Home Repair"],
+            ["Car Wash", "Auto"],
+          ]}
+        />
 
-        <AdminSection title="Manage Providers" columns={["Name", "Specialty", "Actions"]} rows={[
-          ["Ravi Kumar", "Electrician"],
-          ["Sneha Rao", "Plumber"],
-        ]} />
+        <AdminSection
+          title="Manage Providers"
+          columns={["Name", "Specialty", "Actions"]}
+          rows={[
+            ["Ravi Kumar", "Electrician"],
+            ["Sneha Rao", "Plumber"],
+          ]}
+        />
 
-        <AdminSection title="Manage Bookings" columns={["User", "Service", "Date", "Status", "Actions"]} rows={[
-          ["Aditya G", "Cleaning", "2025-06-21", "Completed"],
-          ["Neha M", "Gardening", "2025-06-20", "Pending"],
-        ]} />
+        <AdminSection
+          title="Manage Bookings"
+          columns={["User", "Service", "Date", "Status", "Actions"]}
+          rows={[
+            ["Aditya G", "Cleaning", "2025-06-21", "Completed"],
+            ["Neha M", "Gardening", "2025-06-20", "Pending"],
+          ]}
+        />
       </main>
 
       {/* FOOTER */}
@@ -65,7 +70,6 @@ const AdminPanel = () => {
 };
 
 // COMPONENTS
-
 const SummaryCard = ({ title, count, icon }) => (
   <div className="bg-white p-6 rounded-xl shadow flex items-center gap-4 hover:shadow-lg transition">
     <div className="text-indigo-600 text-3xl">{icon}</div>
