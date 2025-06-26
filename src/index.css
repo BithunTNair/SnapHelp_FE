@@ -1,8 +1,27 @@
 @import "tailwindcss";
 
 :root{
-  --black:#222831;
-  --lightblack:#393E46;
-  --lightbrown:#948979;
-  --light:#DFD0B8;
+  --primary-dark: #1e3a8a;      /* Tailwind indigo-900 */
+  --primary: #4f46e5;           /* Tailwind indigo-600 */
+  --primary-hover: #4338ca;     /* Tailwind indigo-700 */
+  --primary-light: #eef2ff;     /* Tailwind indigo-50 */
+  --secondary-light: #f3e8ff;   /* Tailwind purple-100 */
+  --text-dark: #1e293b;         /* Tailwind slate-800 */
+  --text-light: #64748b;        /* Tailwind slate-500 */
+  --accent: #6366f1;            /* Tailwind indigo-500 */
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out both;
 }
