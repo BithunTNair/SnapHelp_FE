@@ -5,10 +5,11 @@ import ServiceDetail from "./Components/Home/pages/ServiceDetail";
 import ContactPage from "./Components/Home/pages/ContactPage";
 import HistoryPage from "./Components/Home/pages/HistoryPage";
 import AdminPanel from "./Components/Home/pages/AdminPanel";
-
-
-
-
+import Register_user from './Components/Auth/SignUp/Register_user'
+import Generate_otp from "./Components/Auth/SignUp/Generate_otp";
+import Otp_verification from "./Components/Auth/SignUp/Otp_verification";
+import Set_password from "./Components/Auth/SignUp/Set_password";
+import Login from "./Components/Auth/Login/LogIn";
 export default function App() {
   return (
     <Router>
@@ -18,8 +19,12 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/registerUser" element={<Register_user />} />
+        <Route path="/generateOTP" element={<Generate_otp />} />
+        <Route path="/verify_otp" element={<Otp_verification />} />
+        <Route path="/set_password" element={<Set_password />} />
+        <Route path="/login" element={<Login />} />
 
-        {/* Add more routes as needed */}
       </Routes>
     </Router>
   );

@@ -33,6 +33,7 @@ const HomePage = () => {
                     <Link to="/contact" className="hover:text-indigo-600 transition">Contact</Link>
                     <Link to="/history" className="hover:text-indigo-600 transition">History</Link>
                     <Link to="/admin" className="hover:text-indigo-600 transition">Admin</Link>
+                    <Link to="/registerUser" className="hover:text-indigo-600 transition">Account</Link>
                 </div>
                 <a href="#services">
                     <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition">
