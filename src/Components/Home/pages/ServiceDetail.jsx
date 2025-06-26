@@ -1,5 +1,5 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   FaWrench, FaBolt, FaPaintRoller, FaTools,
   FaLeaf, FaPaw, FaCar, FaUserAlt, FaPhoneAlt
@@ -7,7 +7,7 @@ import {
 import { GiVacuumCleaner } from "react-icons/gi";
 import Navbar from "../../Reusable/Navbar";
 
-// ✅ Importing local images
+// ✅ Local Images
 import plumbingImg from "../../../assets/Images/plumbing.jpg";
 import electricianImg from "../../../assets/Images/electrican.jpg";
 import paintingImg from "../../../assets/Images/painting.jpg";
@@ -71,7 +71,19 @@ const serviceData = {
 
 export default function ServiceDetail() {
   const { serviceName } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const data = serviceData[serviceName];
+
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [serviceName, location]);
+
+  const handleDropdownChange = (e) => {
+    navigate(`/services/${e.target.value}`);
+  };
 
   if (!data) {
     return (
@@ -85,22 +97,20 @@ export default function ServiceDetail() {
     <div className="min-h-screen bg-indigo-50">
       <Navbar />
 
-      {/* ✅ Banner Section */}
+      {/* ✅ Banner */}
       <section
-        className="relative bg-cover bg-center bg-no-repeat h-[350px] flex items-center justify-center text-white"
+        className="relative bg-cover bg-center h-[500px] flex items-center justify-center text-white"
         style={{ backgroundImage: `url(${data.image})` }}
       >
-        <div className="absolute inset-0 bg-black/50 z-0" />
+        <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center px-4">
-          <div className="flex justify-center text-4xl mb-2 text-indigo-100">{data.icon}</div>
-          <h1 className="text-3xl md:text-4xl font-bold capitalize mb-2 drop-shadow">
+          <div className="flex justify-center text-5xl mb-3 text-indigo-100">{data.icon}</div>
+          <h1 className="text-4xl md:text-5xl font-bold capitalize mb-3 drop-shadow">
             {serviceName.replace("-", " ")}
           </h1>
-          <p className="max-w-xl mx-auto text-sm md:text-base text-gray-200">
-            {data.desc}
-          </p>
+          <p className="max-w-xl mx-auto text-base md:text-lg text-gray-200">{data.desc}</p>
           <a href="#details">
-            <button className="mt-5 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg transition shadow">
+            <button className="mt-6 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition shadow">
               Explore Details
             </button>
           </a>
@@ -109,11 +119,26 @@ export default function ServiceDetail() {
 
       {/* ✅ Main Content */}
       <div className="max-w-5xl mx-auto px-6 py-10" id="details">
-        {/* Breadcrumb */}
-        <div className="text-sm mb-4 text-gray-600">
-          <Link to="/" className="hover:underline text-indigo-700">Home</Link> /{" "}
-          <Link to="/#services" className="hover:underline text-indigo-700">Services</Link> /{" "}
-          <span className="capitalize">{serviceName.replace("-", " ")}</span>
+        {/* ✅ Breadcrumb with Dropdown */}
+        <div className="text-sm mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-gray-600">
+          <div>
+            <Link to="/" className="hover:underline text-indigo-700">Home</Link> /{" "}
+            <Link to="/#services" className="hover:underline text-indigo-700">Services</Link> /{" "}
+            <span className="capitalize">{serviceName.replace("-", " ")}</span>
+          </div>
+          <div>
+            <select
+              value={serviceName}
+              onChange={handleDropdownChange}
+              className="border border-gray-300 rounded px-3 py-1 text-sm text-gray-800"
+            >
+              {Object.keys(serviceData).map(key => (
+                <option key={key} value={key}>
+                  {serviceData[key].label || key.replace("-", " ")}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* What's Included */}
@@ -145,14 +170,14 @@ export default function ServiceDetail() {
           </div>
         </section>
 
-        {/* CTA Button */}
+        {/* CTA */}
         <div className="text-center mb-14">
           <button className="bg-indigo-700 text-white px-6 py-3 rounded-lg hover:bg-indigo-800 transition">
             Book This Service
           </button>
         </div>
 
-        {/* Reviews */}
+        {/* Customer Reviews */}
         <section className="mb-16">
           <h3 className="text-2xl font-bold text-indigo-900 text-center mb-6">What Our Customers Say</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
