@@ -1,67 +1,68 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import { FaHome, FaUserCircle, FaServicestack } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 
-const Navbar = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+const Navbar = ({ userName }) => {
+  const [name, setName] = useState(userName || '');
 
-  const toggleMenu = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const closeMenu = () => {
-    setMobileOpen(false);
-  };
+  useEffect(() => {
+    if (!userName) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user && user.fullName) setName(user.fullName);
+    }
+  }, [userName]);
 
   return (
-    <nav className="bg-white shadow sticky top-0 z-50">
-      <div className="px-6 md:px-16 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/" className="text-2xl font-extrabold text-indigo-700 tracking-wide">
+    <nav
+      className="flex items-center justify-between px-8 py-4 shadow-lg"
+      style={{
+        background: 'linear-gradient(90deg, var(--primary-dark), var(--primary))',
+        color: 'var(--primary-light)',
+        fontFamily: 'Inter, sans-serif',
+      }}
+    >
+    
+      <div className="flex items-center gap-3">
+        <FaServicestack size={32} color="var(--accent)" />
+        <span className="text-2xl font-bold tracking-wide" style={{ color: 'var(--primary-light)' }}>
           SnapHelp
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 text-sm font-medium">
-          <NavLink to="/" className="hover:text-indigo-600">Home</NavLink>
-          <a href="#services" className="hover:text-indigo-600">Services</a>
-          <a href="#features" className="hover:text-indigo-600">Why Us</a>
-          <NavLink to="/contact" className="hover:text-indigo-600">Contact</NavLink>
-          <NavLink to="/history" className="hover:text-indigo-600">History</NavLink>
-          <NavLink to="/admin" className="hover:text-indigo-600">Admin</NavLink>
-        </div>
-
-        {/* CTA Button */}
-        <div className="hidden md:block">
-          <a href="#services">
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition text-sm">
-              Get Started
-            </button>
-          </a>
-        </div>
-
-        {/* Hamburger Icon */}
-        <div className="md:hidden text-indigo-700 text-2xl cursor-pointer" onClick={toggleMenu}>
-          {mobileOpen ? <FaTimes /> : <FaBars />}
-        </div>
+        </span>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileOpen && (
-        <div className="md:hidden bg-white px-6 pb-4 space-y-3 text-sm font-medium shadow">
-          <NavLink to="/" onClick={closeMenu} className="block hover:text-indigo-600">Home</NavLink>
-          <a href="#services" onClick={closeMenu} className="block hover:text-indigo-600">Services</a>
-          <a href="#features" onClick={closeMenu} className="block hover:text-indigo-600">Why Us</a>
-          <NavLink to="/contact" onClick={closeMenu} className="block hover:text-indigo-600">Contact</NavLink>
-          <NavLink to="/history" onClick={closeMenu} className="block hover:text-indigo-600">History</NavLink>
-          <NavLink to="/admin" onClick={closeMenu} className="block hover:text-indigo-600">Admin</NavLink>
-          <a href="#services">
-            <button className="w-full mt-2 bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
-              Get Started
-            </button>
-          </a>
-        </div>
-      )}
+    
+      <div className="flex gap-8">
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-lg font-medium hover:text-[var(--accent)] transition-colors"
+          style={{ color: 'var(--primary-light)' }}
+        >
+          <FaHome size={22} />
+          Home
+        </Link>
+        <Link
+          to="/services"
+          className="flex items-center gap-2 text-lg font-medium hover:text-[var(--accent)] transition-colors"
+          style={{ color: 'var(--primary-light)' }}
+        >
+          <FaServicestack size={22} />
+          Services
+        </Link>
+        <Link
+          to="/register_user"
+          className="flex items-center gap-2 text-lg font-medium hover:text-[var(--accent)] transition-colors"
+          style={{ color: 'var(--primary-light)' }}
+        >
+          <FaUserCircle size={22} />
+          Account
+        </Link>
+      </div>
+
+    
+      <div className="flex items-center gap-2 bg-[var(--secondary-light)] px-4 py-2 rounded-full shadow"
+        style={{ color: 'var(--text-dark)' }}>
+        <FaUserCircle size={24} color="var(--primary)" />
+        <span className="font-semibold">{name || 'Guest'}</span>
+      </div>
     </nav>
   );
 };
