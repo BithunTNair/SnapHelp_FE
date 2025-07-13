@@ -7,19 +7,21 @@ import Login from '../Auth/Login/LogIn'
 import Home from '../Home/Home'
 import Register_user from '../Auth/SignUp/Register_user'
 import Generate_otp from '../Auth/SignUp/Generate_otp'
+import ProviderRequest from '../Provider/ProviderRequest'
 
 const Routing = () => {
     return (
         <>
             <Router>
                 <Routes>
-                    <Route path='/' element={<Home/>} />
+                    <Route path='/' element={<Home />} />
                     <Route path='/register_user' element={<Register_user />} />
                     <Route path='/generateOTP' element={<Generate_otp />} />
                     <Route path='/verify_otp' element={<Otp_verification />} />
                     <Route path='/set_password' element={<SetPassword />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/home' element={<Home />} />
+                    <Route path='/provider_request' element={<ProviderRequest />} />
                 </Routes>
             </Router>
         </>

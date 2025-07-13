@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { errorToast, successToast } from '../../../plugins/toast';
 import { Input } from '../../Reusable/Input';
+import Navbar from '../../Reusable/Navbar';
 
 const Set_password = () => {
   const navigate = useNavigate();
@@ -37,6 +38,9 @@ const Set_password = () => {
   }
   return (
     <>
+      <div className="fixed top-0 left-0 w-full z-50">
+        <Navbar/>
+      </div>
       <div
         className="min-h-screen flex items-center justify-center bg-[var(--primary-light)]"
         style={{
@@ -47,7 +51,7 @@ const Set_password = () => {
           <div className="flex flex-col items-center gap-2">
             <div className="w-16 h-16 rounded-full bg-[var(--primary)] flex items-center justify-center shadow-lg mb-2">
               <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-                <path fill="var(--primary-light)" d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5Z"/>
+                <path fill="var(--primary-light)" d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5Z" />
               </svg>
             </div>
             <h2 className="text-3xl font-extrabold text-center text-[var(--primary-dark)]">Set Password</h2>

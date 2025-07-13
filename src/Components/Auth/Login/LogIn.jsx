@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { errorToast, successToast } from '../../../plugins/toast';
@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Input } from '../../Reusable/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../../redux_toolkit/signedupUserslice';
+import Navbar from '../../Reusable/Navbar';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -27,18 +28,25 @@ const Login = () => {
             }).then((response) => {
                 console.log(response.data);
                 successToast('Welcome To Our World');
-                navigate('/');
+
+
                 localStorage.setItem('token', response.data.token);
                 const userData = localStorage.setItem('user', JSON.stringify(response.data.user));
-                dispatch(setUser(userData))
+                dispatch(setUser(response.data.user));
+                navigate('/', { replace: true });
             })
         } catch (error) {
             console.log(error.data);
             errorToast('something went wrong')
         }
     }
+
+
     return (
         <>
+            <div className="fixed top-0 left-0 w-full z-50">
+                <Navbar />
+            </div>
             <div
                 className="min-h-screen flex items-center justify-center bg-[var(--primary-light)]"
                 style={{

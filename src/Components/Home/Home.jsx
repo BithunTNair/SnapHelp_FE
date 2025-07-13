@@ -1,23 +1,78 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../Reusable/Navbar'
+import { useNavigate } from 'react-router-dom'
+
+import img1 from '../../Images/cleaning.jpg'
+import img2 from '../../Images/gardening.jpg'
+import img3 from '../../images/plumbing.jpg'
+
+
+const images = [img1, img2, img3];
 
 const Home = () => {
+  const navigate = useNavigate();
+  const [current, setCurrent] = useState(0);
+  const timeoutRef = useRef(null);
+
+
+  useEffect(() => {
+    timeoutRef.current = setTimeout(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearTimeout(timeoutRef.current);
+  }, [current]);
+
+  const handleProviderRequest = () => {
+    navigate('/provider_request')
+  };
+
   return (
     <>
       <Navbar />
       <main
-        className="min-h-[calc(100vh-72px)] flex flex-col items-center justify-center px-4 py-10 bg-[var(--primary-light)]"
+        className="pt-20 min-h-[calc(100vh-72px)] flex flex-col items-center justify-center px-0 py-10 bg-[var(--primary-light)]"
         style={{
           background: 'linear-gradient(135deg, var(--primary-light) 60%, var(--secondary-light) 100%)',
         }}
       >
+
+        <section className="w-full mb-12">
+          <div className="relative overflow-hidden rounded-none md:rounded-2xl shadow-lg h-56 sm:h-72 md:h-80 lg:h-[32rem] w-full">
+
+            {images.map((img, idx) => (
+              <img
+                key={idx}
+                src={img}
+                alt={`carousel-${idx}`}
+                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${current === idx ? 'opacity-60 z-10' : 'opacity-0 z-0'}`}
+                draggable={false}
+              />
+            ))}
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--primary-dark)] mb-2 drop-shadow-lg">
+                Welcome to <span className="text-[var(--accent)]">SnapHelp</span>
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl text-[var(--text-light)] mb-4 drop-shadow-lg text-center max-w-2xl">
+                Your one-stop solution for finding trusted local services, fast and easy.
+              </p>
+            </div>
+
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+              {images.map((_, idx) => (
+                <button
+                  key={idx}
+                  className={`w-3 h-3 rounded-full ${current === idx ? 'bg-[var(--accent)]' : 'bg-white/70'} border border-[var(--primary)] transition`}
+                  onClick={() => setCurrent(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
+
         <section className="max-w-2xl w-full text-center space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-[var(--primary-dark)] mb-2">
-            Welcome to <span className="text-[var(--accent)]">SnapHelp</span>
-          </h1>
-          <p className="text-lg md:text-xl text-[var(--text-light)] mb-4">
-            Your one-stop solution for finding trusted local services, fast and easy.
-          </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center mt-8">
             <a
               href="/services"
@@ -50,6 +105,19 @@ const Home = () => {
             <p className="text-[var(--text-light)] text-center">Share your experience and help others choose the best services.</p>
           </div>
         </section>
+
+        <section className="w-full max-w-2xl mx-auto mt-16 mb-10 bg-white/90 rounded-2xl shadow-lg p-8 flex flex-col items-center space-y-4 border border-[var(--primary-light)]">
+          <h3 className="text-2xl font-bold text-[var(--primary-dark)] mb-2">Become a Service Provider</h3>
+          <p className="text-[var(--text-light)] text-center mb-2">
+            If you want to join as a provider, click the button below and submit the form. Our admin will verify your details and approve your request if you are eligible.
+          </p>
+          <button
+            onClick={handleProviderRequest}
+            className="px-8 py-3 rounded-full bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-white font-semibold text-lg shadow hover:shadow-xl hover:scale-105 transition-transform duration-300"
+          >
+            Become a Provider
+          </button>
+        </section>
       </main>
       <footer
         className="w-full mt-auto py-6 px-4 text-center"
@@ -72,4 +140,4 @@ const Home = () => {
     </>
   )
 };
- export default Home 
+export default Home
