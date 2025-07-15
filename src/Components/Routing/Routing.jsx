@@ -8,6 +8,8 @@ import Home from '../Home/Home'
 import Register_user from '../Auth/SignUp/Register_user'
 import Generate_otp from '../Auth/SignUp/Generate_otp'
 import ProviderRequest from '../Provider/ProviderRequest'
+import Services from '../User/Services'
+import AddServices from '../Admin/AddServices'
 
 const Routing = () => {
     return (
@@ -22,6 +24,8 @@ const Routing = () => {
                     <Route path='/login' element={<Login />} />
                     <Route path='/home' element={<Home />} />
                     <Route path='/provider_request' element={<ProviderRequest />} />
+                    <Route path='/services' element={<Services />} />
+                    <Route path='/admin/addservice' element={<AddServices />} />
                 </Routes>
             </Router>
         </>

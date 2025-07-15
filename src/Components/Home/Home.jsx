@@ -2,14 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../Reusable/Navbar'
 import { useNavigate } from 'react-router-dom'
 
-import img1 from '../../Images/cleaning.jpg'
-import img2 from '../../Images/gardening.jpg'
+import img1 from '../../Images/electrician.jpg'
+import img2 from '../../Images/painting.jpg'
 import img3 from '../../images/plumbing.jpg'
+import { useSelector } from 'react-redux'
 
 
 const images = [img1, img2, img3];
 
 const Home = () => {
+  const {user} =useSelector(store=>store.user);
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const timeoutRef = useRef(null);
@@ -23,7 +25,7 @@ const Home = () => {
   }, [current]);
 
   const handleProviderRequest = () => {
-    navigate('/provider_request')
+  { user=={} ?   navigate('/register_user') : navigate('/provider_request') }
   };
 
   return (
@@ -36,35 +38,31 @@ const Home = () => {
         }}
       >
 
-        <section className="w-full mb-12">
-          <div className="relative overflow-hidden rounded-none md:rounded-2xl shadow-lg h-56 sm:h-72 md:h-80 lg:h-[32rem] w-full">
-
-            {images.map((img, idx) => (
+        <section className="w-full flex flex-col items-center mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--primary-dark)] mb-2 drop-shadow-lg text-center">
+            Welcome to <span className="text-[var(--accent)]">SnapHelp</span>
+          </h1>
+          <p className="text-base sm:text-lg md:text-xl text-[var(--text-light)] mb-6 drop-shadow-lg text-center max-w-2xl">
+            Your one-stop solution for finding trusted local services, fast and easy.
+          </p>
+          <div className="relative rounded-2xl w-full max-w-7xl aspect-[16/7] overflow-hidden mx-auto px-2">
+            {images.map((img, index) => (
               <img
-                key={idx}
+                key={index}
                 src={img}
-                alt={`carousel-${idx}`}
-                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ${current === idx ? 'opacity-60 z-10' : 'opacity-0 z-0'}`}
+                alt=''
+                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${current === index ? 'opacity-90 scale-100 z-10' : 'opacity-0 scale-105 z-0'}`}
+                style={{ transitionProperty: 'opacity, transform' }}
                 draggable={false}
               />
             ))}
-
-            <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--primary-dark)] mb-2 drop-shadow-lg">
-                Welcome to <span className="text-[var(--accent)]">SnapHelp</span>
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl text-[var(--text-light)] mb-4 drop-shadow-lg text-center max-w-2xl">
-                Your one-stop solution for finding trusted local services, fast and easy.
-              </p>
-            </div>
-
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
-              {images.map((_, idx) => (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-30">
+              {images.map((_, index) => (
                 <button
-                  key={idx}
-                  className={`w-3 h-3 rounded-full ${current === idx ? 'bg-[var(--accent)]' : 'bg-white/70'} border border-[var(--primary)] transition`}
-                  onClick={() => setCurrent(idx)}
-                  aria-label={`Go to slide ${idx + 1}`}
+                  key={index}
+                  className={`w-4 h-4 rounded-full border-2 ${current === index ? 'bg-[var(--accent)] border-[var(--accent)] scale-110 shadow-lg' : 'bg-white/70 border-[var(--primary)]'} transition-all duration-300`}
+                  onClick={() => setCurrent(index)}
+                  aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
             </div>

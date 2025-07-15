@@ -5,13 +5,13 @@ import { errorToast, successToast } from '../../../plugins/toast';
 import axios from 'axios';
 import { Input } from '../../Reusable/Input';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../../redux_toolkit/signedupUserslice';
+import { setUser } from '../../../redux_toolkit/userSlice';
 import Navbar from '../../Reusable/Navbar';
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user)
+    const user = useSelector(store => store.user)
     const {
         register,
         handleSubmit,
