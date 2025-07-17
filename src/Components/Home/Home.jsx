@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 const images = [img1, img2, img3];
 
 const Home = () => {
-  const {user} =useSelector(store=>store.user);
+  const { user } = useSelector(store => store.user);
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const timeoutRef = useRef(null);
@@ -25,7 +25,7 @@ const Home = () => {
   }, [current]);
 
   const handleProviderRequest = () => {
-  { user=={} ?   navigate('/register_user') : navigate('/provider_request') }
+    navigate(Object.keys(user).length==0 ? '/register_user' : '/provider_request')
   };
 
   return (

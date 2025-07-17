@@ -1,8 +1,8 @@
-import { toast, Flip } from 'react-toastify'
+import { toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 export function successToast(message){
     toast.success(message, {
-        position: "top-center",
+        position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: false,
@@ -10,7 +10,7 @@ export function successToast(message){
         draggable: true,
         progress: undefined,
         theme: "colored",
-        transition: Flip,
+        transition: Bounce,
         });
 };
 
